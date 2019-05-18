@@ -1,0 +1,11 @@
+window.Scene = function(){
+    class Scene {
+        constructor(){
+            this.elem = [];
+            this.size = [150,100];
+        }
+
+    }
+
+    return new Scene();
+}();

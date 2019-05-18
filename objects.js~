@@ -1,0 +1,7 @@
+class Objet {
+    constructor(img,tailleX,tailleY){
+        this.img = new Image();
+        this.img.src = "images/" + img + ".png";
+    }
+
+};
