@@ -1,0 +1,54 @@
+class Feux extends Objet{
+    constructor(img,taille,pos){
+        super(img,taille,pos);
+        this.speed = 5;
+        this.r = 0;
+        this.state = 1; // Etat repos : 0  apparition : 1  missile : 2  disparition : 3
+        this.vect = [];
+        this.n = 0;
+    }
+
+    draw(Painter){
+        Painter.rectangle(this.position[0],this.position[1],this.size[0],this.size[1],"rgb(0,0,0)");
+        Painter.imgObjRot(this.img,this.position[0],this.position[1],this.r);
+    }
+    
+    act(t,KeyBoard,elem,i){
+        if (this.state == 0) super(t,KeyBoard,elem,i);
+        else if (this.state == 1) this.actFadeIn(t,KeyBoard,elem,i);
+        else if (this.state == 3) this.actFadeOut(t,KeyBoard,elem,i);
+        else this.actMissile(t,KeyBoard,elem,i);
+    }
+
+    actMissile(t,KeyBoard,elem,i){
+        this.position[0] += this.vect[0];
+        this.position[1] += this.vect[1];
+        if (this.bonking(elem,i)){
+            this.position[0] -= this.vect[0];
+            this.position[1] -= this.vect[1];
+            this.vect[0] *= -0.5;
+            this.vect[1] *= -0.5;
+        }
+    }
+
+    actRoll(t,KeyBoard,elem,i){
+        this.n -= 1;
+        let taille = this.vect[0]**2 + this.vect[1]**2;
+        let rotSpeed = 0.02*taille/Math.PI;
+        if (this.vect[0] < 0) rotSpeed *= -1;
+        this.r += rotSpeed;
+        this.position[0] += this.vect[0];
+        this.position[1] += this.vect[1];
+
+        if (this.bonking(elem,i)){
+            this.position[0] -= this.vect[0];
+            this.position[1] -= this.vect[1];
+            this.vect[0] *= -1.1; this.vect[1] *= -1.1;            
+        }
+        if (this.n <= 0){
+            this.n = 0; this.state = 1; this.r = 0;
+        }
+
+    }
+    
+};

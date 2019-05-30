@@ -1,0 +1,4 @@
+#+STARTUP: indent
+
+C-c C-t  wink wink
+

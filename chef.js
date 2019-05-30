@@ -22,12 +22,28 @@ window.Chef = function(){
         setPainter(painter){
             this.Painter = painter;
         }
+
+        setKeyBoard(keyBoard){
+            this.KeyBoard = keyBoard;
+        }
         
-        animation(t){
-            Painter.cleanScreen();
-            Scene.draw(Painter);
+        animation(){
+            let Scene = this.Scene;
+            let Painter = this.Painter;
+            let KeyBoard = this.KeyBoard;
+            let f = function(t){
+                // Partie dessin
+                Painter.cleanScreen();
+                Scene.draw(Painter);
+
+                // Partie Action
+                Scene.act(t,KeyBoard);
+                Scene.sort();
+                Painter.scroll();
                 
-            window.requestAnimationFrame(this.animation);
+                window.requestAnimationFrame(f);
+            };
+            window.requestAnimationFrame(f);
         }
         
 
