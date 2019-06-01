@@ -2,6 +2,8 @@ window.Chef = function(){
     class Chef {
         constructor(){
             this.goOn = false;
+            this.soundLag = 3;
+            this.curLag = 3;
         }
 
         start(){
@@ -15,6 +17,19 @@ window.Chef = function(){
             this.goOn = false;
         }
 
+        setConteur(conteur){
+            this.Conteur = conteur;
+        }
+
+        setVoiceChan(voices,story){
+            this.voices = voices;
+            this.voices.forEach(
+                function(e){
+                    e.init(story);
+                }
+            );
+        }
+        
         setScene(scene){
             this.Scene = scene;
         }
@@ -26,24 +41,39 @@ window.Chef = function(){
         setKeyBoard(keyBoard){
             this.KeyBoard = keyBoard;
         }
+
+        voicesEnded(){
+            for (let i = 0; i < this.voices.length; i++){
+                if (this.voices[i].finish == false) return false;
+            }
+            return true;
+        }
         
         animation(){
-            let Scene = this.Scene;
-            let Painter = this.Painter;
-            let KeyBoard = this.KeyBoard;
             let f = function(t){
+                if (this.curLag > 0) this.curLag -= 1;
                 // Partie dessin
-                Painter.cleanScreen();
-                Scene.draw(Painter);
+                this.Painter.cleanScreen();
+                this.Scene.draw(Painter);
 
                 // Partie Action
-                Scene.act(t,KeyBoard);
-                Scene.sort();
-                Painter.scroll();
+                this.Scene.act(t,KeyBoard);
+                this.Scene.sort();
+                this.Painter.scroll();
+
+                if (this.Scene.isThereDeath()){
+                    this.Conteur.death(this.voices,this.Scene);
+                }
+
+                // Partie Son
+                if (this.voicesEnded() && this.curLag <= 0){
+                    this.curLag = this.soundLag;
+                    this.Conteur.next(this.voices,this.Scene);
+                }
                 
-                window.requestAnimationFrame(f);
+                window.requestAnimationFrame(f.bind(this));
             };
-            window.requestAnimationFrame(f);
+            window.requestAnimationFrame(f.bind(this));
         }
         
 

@@ -17,12 +17,42 @@ window.Scene = function(){
             }
         }
 
+        put(n,x,y){
+            this.elem[n].position = [x,y];
+        }
+
         act(t,keyBoard){
             for (let i = 0; i < this.elem.length; i++){
                 this.elem[i].act(t,keyBoard,this.elem,i);
+                if (this.elem[i].touched){
+                    
+                }
             }
         }
 
+        event(evt){
+            if (evt[0] == "activate" || evt[0] == "deactivate"){
+                for (let i = 0; i < this.elem.length; i ++){
+                    if (this.elem[i].getId() == evt[1]) {
+                        if (evt[0] == "activate") this.elem[i].activate(evt[2]);
+                        else this.elem[i].deActivate();
+                    }
+                }
+            }
+        }
+
+        isThereDeath(){
+            for (let i = 0; i < this.elem.length; i ++){
+                if (this.elem[i].vulnerable){
+                    if (this.elem[i].touched){
+                        this.elem[i].heal();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
         getElem(n){
             if (n == undefined) return elem;
             else return elem[n];

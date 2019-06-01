@@ -1,0 +1,24 @@
+class AudioChan {
+    constructor(){
+        this.actx = new Audio();
+    }
+
+    init(histoire){
+        this.story = histoire;
+    }
+
+    
+    
+    play(){
+        this.actx.play();
+    }
+
+    load(clip){
+        
+    }
+
+    
+
+
+};
+

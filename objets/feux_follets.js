@@ -19,7 +19,7 @@ class Feux extends Objet{
     }
 
     deActivate(){
-        this.state = 4;
+        this.state = 0;
     }
 
     draw(Painter){
@@ -36,11 +36,22 @@ class Feux extends Objet{
 
     actNone(){}
 
+    agression(elem){
+        for (let i = 0; i < elem.length; i ++){
+            if (elem[i].vulnerable){
+                if (elem[i].overlap(this.position,this.size)){
+                    elem[i].hurt();
+                }
+            }
+        }
+    }
+    
     actMissile(t,KeyBoard,elem,i){
         this.n -= 1;
         this.position[0] += this.vect[0];
         this.position[1] += this.vect[1];
         if (this.bonking(elem,i) || this.n <= 0){
+            this.agression(elem);
             this.n = 0;
             this.position[0] -= this.vect[0];
             this.position[1] -= this.vect[1];
@@ -98,6 +109,12 @@ class Feux extends Objet{
         for (let i = 0;i < elem.length; i++){
             if (elem[i].getId() == this.target) return elem[i];
         }
+    }
+
+    overlap(pos,size){
+        return Math.abs(this.position[0] - pos[0])*2 <= size[0] + this.size[0] &&
+            Math.abs(this.position[1] - pos[1])*2 <= size[1] + this.size[1] &&
+            this.state == 0;
     }
     
 };

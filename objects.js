@@ -6,6 +6,7 @@ class Objet {
         this.size = taille;
         this.position = pos;
         this.id = -1;
+        this.vulnerable = false;
     }
 
     getId(){

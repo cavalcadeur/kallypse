@@ -8,6 +8,8 @@ class Croissant extends Objet{
         this.state = 1; // Etat de base : 1  rolling : 2
         this.vect = [];
         this.n = 0;
+        this.vulnerable = true;
+        this.touched = false;
     }
 
     setKeys(newKeys,newActKey){
@@ -73,6 +75,14 @@ class Croissant extends Objet{
             this.n = 0; this.state = 1; this.r = 0;
         }
 
+    }
+
+    hurt(){
+        this.touched = true;
+    }
+
+    heal(){
+        this.touched = false;
     }
     
 };

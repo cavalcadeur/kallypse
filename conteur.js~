@@ -1,0 +1,61 @@
+window.Conteur = function(){
+    class Conteur {
+        constructor(){
+            
+        }
+
+        init(name,Scene){
+            this.name = name;
+            let requestURL = "histoires/" + this.name + "/init.json";
+            let request = new XMLHttpRequest();
+            request.open("GET",requestURL);
+            request.responseType = 'json';
+            request.send();
+            let that = this;
+            request.onload = function(){
+                that.objSet = request.response;
+                that.createObj(Scene);
+            };
+        }
+
+        load(n,Scene){  // Charge en mémoire l'étape n de l'histoire
+            let requestURL = "histoires/" + this.name + "/" + n + ".json";
+            let request = new XMLHttpRequest();
+            request.open("GET",requestURL);
+            request.responseType = 'json';
+            request.send();
+            let that = this;
+            request.onload = function(){
+                that.fillIn(request.response);
+                that.setUp(Scene);
+            };
+        }
+
+        fillIn(data){
+            this.pos = data.pos;
+            this.dialogues = data.dialogues;
+        }
+
+        createObj(Scene){
+            let obj;
+            for (let i = 0; i < this.objSet.length; i ++){
+                if (this.objSet[i][0] == "Croissant") {
+                    obj = new Croissant(this.objSet[i][1],this.objSet[i][2],this.objSet[i][3]);
+                }
+                else if (this.objSet[i][0] == "Feux") {
+                    obj = new Feux(this.objSet[i][1],this.objSet[i][2],this.objSet[i][3]);
+                }
+                else {
+                    obj = new Objet(this.objSet[i][1],this.objSet[i][2],this.objSet[i][3]);
+                }
+                Scene.add(obj);
+            }
+        }
+
+        setUp(Scene){
+            
+        }
+    };
+
+    return new Conteur();
+}();
