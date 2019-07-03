@@ -24,8 +24,8 @@ window.Chef = function(){
         setVoiceChan(voices,story){
             this.voices = voices;
             this.voices.forEach(
-                function(e){
-                    e.init(story);
+                function(e,i){
+                    e.init(story,i);
                 }
             );
         }
@@ -48,6 +48,12 @@ window.Chef = function(){
             }
             return true;
         }
+
+        subTitles(){
+            for (let i = 0; i < this.voices.length; i++){
+                this.voices[i].showSubtitles();
+            }
+        }
         
         animation(){
             let f = function(t){
@@ -66,6 +72,7 @@ window.Chef = function(){
                 }
 
                 // Partie Son
+                this.subTitles();
                 if (this.voicesEnded() && this.curLag <= 0){
                     this.curLag = this.soundLag;
                     this.Conteur.next(this.voices,this.Scene);

@@ -52,6 +52,16 @@ window.Scene = function(){
             }
             return false;
         }
+
+        setUp(pos){
+            let iddi;
+            for (let i = 0; i < this.elem.length; i ++){
+                iddi = this.elem[i].getId();
+                if (pos[iddi] != undefined){
+                    this.elem[i].goTo(pos[iddi]);
+                }
+            }
+        }
         
         getElem(n){
             if (n == undefined) return elem;

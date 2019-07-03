@@ -17,6 +17,10 @@ class Objet {
         return this.position;
     }
 
+    goTo(pos){
+        this.position = pos;
+    }
+
     bonking(elem,i){
         for (let j = 0; j < elem.length; j++){
             if (j != i){

@@ -2,7 +2,7 @@
     "position":[[-50,200],[200,0],[150,75],[-200,0],[-150,-75]],
     "dialogues":[[0,1],[1,0,0],[0,3,1],[0,2]],
     "mort":2,
-    "events":[[["activate",4,0]],[["deactivate",4]]],
+    "events":[[["activate",4,0]],[["deactivate",4]],[["changeStep",2]]],
     "first":0
 
 }

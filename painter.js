@@ -45,7 +45,7 @@ window.Painter = function(){
         }
 
         cleanScreen(){
-            this.ctx.fillStyle = "rgb(0,0,0)";
+            this.ctx.fillStyle = "rgb(38,70,100)";
             this.ctx.fillRect(0,0,W,H);
         }
 

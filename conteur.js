@@ -22,6 +22,7 @@ window.Conteur = function(){
 
         load(n,Scene,doNext){  // Charge en mémoire l'étape n de l'histoire
             this.step = n;
+            console.log(this.step);
             let requestURL = "histoires/" + this.name + "/" + n + ".json";
             let request = new XMLHttpRequest();
             request.open("GET",requestURL);
@@ -38,7 +39,7 @@ window.Conteur = function(){
         fillIn(data){
             this.first = data.first;
             this.mort = data.mort;
-            this.pos = data.pos;
+            this.pos = data.position;
             this.dialogues = data.dialogues;
             this.events = data.events;
         }
@@ -60,19 +61,29 @@ window.Conteur = function(){
         }
 
         setUp(Scene){
-            
+            Scene.setUp(this.pos);
         }
 
         newDialogue(voices,Scene){
-            voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step);
-            voices[this.dialogues[this.nDia][0]].play();
             let event = this.dialogues[this.nDia][2];
             if (event != undefined){
                 event = this.events[event];
                 for (let i = 0; i < event.length; i ++){
+                    if (event[i][0] == "changeStep"){
+                        this.load(event[i][1],Scene,this.newStep.bind(voices,Scene));
+                        return;
+                    }
                     Scene.event(event[i]);
                 }
             }
+            voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step);
+            voices[this.dialogues[this.nDia][0]].play();
+        }
+
+        newStep(voices,Scene){
+            this.nDia = this.first;
+            voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step);
+            voices[this.dialogues[this.nDia][0]].play();
         }
         
         next(voices,Scene){
