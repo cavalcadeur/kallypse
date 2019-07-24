@@ -1,21 +1,27 @@
 [
-    [[0,"Droshie Kaleemos !"],
-     [2,"Kala Negossa. <br> Dross."],
-     [4,"Akana segamoss."],
-     [6,"Akana segamoss.<br>Unh !<br>Egaleh."],
-     [7.6,"Lavenuvenido."],
-     [9,"Sérieusement ? Vous comprenez ce qu'elle dit ?"],
-     [21,"Plus que 5 secondes !"]],
+    [[0,""]],
 
-    [[0,"Autre texte"],
-     [500,"Wallah"]],
+    [[0,"- Oulah ! <br>C'est une looongue histoire !"],
+     [4,"Tu es sûre de vouloir me lancer sur le sujet ?"],
+	 [6,""]],
 
-    [[0,"Encore un truc à la con."],
-     [700,"C'est jamais fini."]],
+    [[0,""]],
 
-    [[0,"COUCOU"],
-     [200,"Salut !"],
-     [300,"Bite"],
-     [600,"Oulala."]]
+    [[0,"- Effectivement !<br>Mais là, l'histoire que je vais te raconter, elle est réelle cette fois-ci."],
+     [6,"Donc forcément, c'est un petit moins intéressant."],
+     [9,""]],
+
+    [[0,"ET ! C'est loin d'être simple.<br>Donc il va falloir que tu sois un minimum attentive."],
+     [4,"Je suis arrivé ici il y a quelques jours.<br>J'étais à la poursuite d'un lapin cryptophage."],
+     [8.5,"Et, déjà, je me suis perdu assez vite.<br>Bon ! On va dire que ce croissant là : c'est moi."],
+     [16,"Je suis au milieu d'un canyon sans trop savoir pourquoi.<br>Mais mon légendaire flair me dit d'aller vers le sud !"],
+     [23,"Alors, logiquement, je vais vers le nord."],
+     [25,""]],
+
+    [[0,""]],
+
+    [[0,"Tu veux comprendre l'histoire ou pas ?"],
+     [1.8,"Bon ! Je sors du canyon et je tombe directement sur le lapin !<br>PAF ! Là direct quoi ! La chance !"],
+     [7,""]]
     
 ]

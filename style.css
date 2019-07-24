@@ -22,12 +22,12 @@ body {
 #alert1 {
     position: absolute;
     left: 5%;
-    top: 70%;
+    top: 80%;
     right: 5%;
     bottom: 4px;
     text-align: center;
     background-color: rgba(0,0,0,0);
-    opacity:0;
+    opacity:1;
     color: rgb(255,255,255);	
     font-weight: normal;
     font-size: 150%;

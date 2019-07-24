@@ -1,16 +1,22 @@
 [
-    [[0,""],
-     [650,""]],
+    [[0,"- En tout cas, ça fait plaisir de te revoir. Après tout ce temps..."],
+     [3.5,"- En tout cas, ça fait plaisir de te revoir. Après tout ce temps...<br>Qu'est ce qui t'ammène dans cette région ?"],
+	 [6,""]],
 
     [[0,""],
      [500,""]],
 
-    [[0,""],
-     [700,""]],
+    [[0,"- Oh allez !<br>Ça ne peut pas être pire que ce que tu me racontais quand on étaient jeunes."],
+     [4,""]],
 
-    [[0,""],
-     [200,""],
-     [300,""],
-     [600,""]]
+    [[0,""]],
+
+    [[0,""]],
+
+    [[0,"- Mais ...<br>Tu comptes reproduire chaque lieu avec notre petit déjeuner ?"],
+     [4,"Parce que j'ai faim là et puis ça va nous prendre des heures, non ?"],
+     [7,""]],
+
+    [[0,""]]
     
 ]
