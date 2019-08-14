@@ -64,20 +64,13 @@ window.Conteur = function(){
             Scene.setUp(this.pos);
         }
 
-        newDialogue(voices,Scene){
+        newDialogue(voices,Scene,KeyBoard){
             let event = this.dialogues[this.nDia][2];
-            if (event != undefined){
-                event = this.events[event];
-                for (let i = 0; i < event.length; i ++){
-                    if (event[i][0] == "changeStep"){
-                        this.load(event[i][1],Scene,this.newStep.bind(voices,Scene));
-                        return;
-                    }
-                    Scene.event(event[i]);
-                }
-            }
+            if (event != undefined) event = this.events[event];
+            else event = [];
             voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step);
             voices[this.dialogues[this.nDia][0]].play();
+            return event;
         }
 
         newStep(voices,Scene){
@@ -85,11 +78,15 @@ window.Conteur = function(){
             voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step);
             voices[this.dialogues[this.nDia][0]].play();
         }
+
+        setStep(n){
+            this.nDia = n;
+        }
         
-        next(voices,Scene){
+        next(voices,Scene,KeyBoard){
             if (this.nDia == -1) this.nDia = this.first;
             else this.nDia = this.dialogues[this.nDia][1];
-            this.newDialogue(voices,Scene);
+            return this.newDialogue(voices,Scene,KeyBoard);
         }
 
         death(voices,Scene){

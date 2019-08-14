@@ -2,6 +2,11 @@ body {
 	overflow: hidden;
 }
 
+@font-face {
+    font-family: 'Purisa';
+    src: url('/fonts/Purisa.ttf');
+}
+
 #alert0 {
     position: absolute;
     left: 5%;

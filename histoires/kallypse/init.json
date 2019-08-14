@@ -1,6 +1,7 @@
 [
     ["Croissant","croissant",[70,16],[-100,-50]],
     ["Object","theiere",[440,35],[100,50]],
+    ["Object","carafe",[200,45],[-100,250]],
     ["Object","tasse",[70,16],[-200,-80]],
     ["Object","tasse",[70,16],[-300,200]],
     ["Feux","noisette",[45,16],[-50,100]]

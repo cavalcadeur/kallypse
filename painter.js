@@ -44,6 +44,16 @@ window.Painter = function(){
             this.ctx.restore();
         }
 
+        imgCover(img){
+            this.ctx.drawImage(img,0,0,W,H)
+        }
+
+        imgCoverBottom(img){
+            let x = img.width; let y = img.height;
+            let newY = (y/x)*W
+            this.ctx.drawImage(img,0,H-newY,W,newY);
+        }
+        
         cleanScreen(){
             this.ctx.fillStyle = "rgb(38,70,100)";
             this.ctx.fillRect(0,0,W,H);
