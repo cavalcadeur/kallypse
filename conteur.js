@@ -31,7 +31,7 @@ window.Conteur = function(){
             let that = this;
             request.onload = function(){
                 that.fillIn(request.response);
-                that.setUp(Scene);
+                //that.setUp(Scene);
                 doNext();
             };
         }
@@ -65,10 +65,13 @@ window.Conteur = function(){
         }
 
         newDialogue(voices,Scene,KeyBoard){
-            let event = this.dialogues[this.nDia][2];
+            let event = this.dialogues[this.nDia][3];
             if (event != undefined) event = this.events[event];
             else event = [];
-            voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step);
+            for (let i = 0; i < voices.length; i ++){
+                voices[i].stop();
+            }
+            voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step,this.dialogues[this.nDia][1]);
             voices[this.dialogues[this.nDia][0]].play();
             return event;
         }
@@ -85,7 +88,7 @@ window.Conteur = function(){
         
         next(voices,Scene,KeyBoard){
             if (this.nDia == -1) this.nDia = this.first;
-            else this.nDia = this.dialogues[this.nDia][1];
+            else this.nDia = this.dialogues[this.nDia][2];
             return this.newDialogue(voices,Scene,KeyBoard);
         }
 

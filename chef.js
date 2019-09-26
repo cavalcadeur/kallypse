@@ -2,10 +2,11 @@ window.Chef = function(){
     class Chef {
         constructor(){
             this.goOn = false;
-            this.soundLag = 3;
+            this.soundLag = 2;
             this.curLag = 3;
             this.surImg = 0; // 0 : affichage de la table  1 : écran noir  2 : image
             this.img = new Image();
+            this.oldT = -1;
         }
 
         start(){
@@ -46,22 +47,29 @@ window.Chef = function(){
 
         voicesEnded(){
             for (let i = 0; i < this.voices.length; i++){
-                if (this.voices[i].finish == false) return false;
+                if (this.voices[i].isEnded() == false) return false;
             }
             return true;
         }
 
-        subTitles(){
+        subTitles(t){
             for (let i = 0; i < this.voices.length; i++){
-                this.voices[i].showSubtitles();
+                this.voices[i].showSubtitles(t);
             }
+        }
+
+        newStep(){
+            for (let i = 0; i < this.voices.length; i++){
+                this.voices[i].stop();
+            }
+            this.Conteur.newStep(this.voices,this.Scene);
         }
 
         manageEvent(event){
             for (let i = 0; i < event.length; i ++){
                 if (event[i][0] == "changeStep"){
                     // Ca va beaucoup moins bien marcher forcément.
-                    this.Conteur.load(event[i][1],Scene,this.newStep.bind(voices,Scene));
+                    this.Conteur.load(event[i][1],this.newStep.bind(this));
                     return;
                 }
                 else if (event[i][0] == "waitKey"){
@@ -80,6 +88,9 @@ window.Chef = function(){
                 }
                 else if (event[i][0] == "addMain"){
                     this.Scene.addMain(event[i][1],event[i][2]);
+                }
+                else if (event[i][0] == "activateKeyBoard"){
+                    this.KeyBoard.newStance(2,0);
                 }
                 else this.Scene.event(event[i]);
             }
@@ -105,6 +116,7 @@ window.Chef = function(){
         
         animation(){
             let f = function(t){
+                if (this.oldT == -1) this.oldT = t;
                 if (this.curLag > 0) this.curLag -= 1;
                 // Partie dessin
                 this.draw();
@@ -123,12 +135,14 @@ window.Chef = function(){
                 this.KeyBoard.resetNews();
 
                 // Partie Son
-                this.subTitles();
+                this.subTitles(t - this.oldT);
                 if (this.voicesEnded() && this.curLag <= 0){
                     this.curLag = this.soundLag;
                     let evt = this.Conteur.next(this.voices,this.Scene,this.KeyBoard);
                     this.manageEvent(evt);
                 }
+
+                this.oldT = t;
                 
                 window.requestAnimationFrame(f.bind(this));
             };

@@ -1,17 +1,1 @@
-[
-    [[0,""],
-     [2,"Surveille ton langage. Sale nègre."],
-     [4,""]],
-
-    [[0,""],
-     [500,""]],
-
-    [[0,""],
-     [700,""]],
-
-    [[0,""],
-     [200,""],
-     [300,""],
-     [600,""]]
-    
-]
+[[[0, "-  C’etait quoi comme espèce de lapin déjà ?"], [3.5, ""]], [[0, "-  C’est à dire ?"], [1.5, " Tu avais une machine à écrire sur toi ?"], [5.0, ""]], [[0, "-  Et donc tu as sauté sur un lapin sans défense avec tout ton courage ?"], [6.0, ""]], [[0, "-  Et malgré ton clavier et tout ton courage, tu l’as raté ?"], [5.0, " Un poil déçu."], [6.5, ""]], [[0, "-  Et alors ?"], [1, "!"], [2, ""]], [[0, "-  Désabusé."], [1, " Forcément !"], [2, ""]], [[0, "-  C’est justement ce qui m’inquiète…"], [3.0, ""]]]

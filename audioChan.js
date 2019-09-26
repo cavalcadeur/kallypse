@@ -5,8 +5,10 @@ class AudioChan {
         this.step = -1;
         this.clip = -1;
         this.texte = [];
+        this.clipTexte = -1;
         this.nTexte = 0;
         this.id = -1;
+        this.currentTime = 0;
     }
 
     init(histoire,i){
@@ -22,15 +24,19 @@ class AudioChan {
         this.finish = true;
     }
 
-    showSubtitles(){
-        if (this.texte[this.clip] == undefined) return;
-        let t = this.actx.currentTime;
-        if ((this.nTexte + 1 < this.texte[this.clip].length && this.actx.currentTime >= this.texte[this.clip][this.nTexte + 1][0])) {
+    showSubtitles(t){
+        if (this.finish){
+            this.currentTime += t/1000;
+        }
+        else{
+            this.currentTime = this.actx.currentTime;
+        }
+        if (this.texte[this.clipTexte] == undefined) return;
+        if ((this.nTexte + 1 < this.texte[this.clipTexte].length && this.currentTime >= this.texte[this.clipTexte][this.nTexte + 1][0])) {
             this.nTexte += 1;
         }
         let elem = document.getElementById("alert" + this.id);
-        elem.innerHTML = this.texte[this.clip][this.nTexte][1];
-        
+        elem.innerHTML = this.texte[this.clipTexte][this.nTexte][1];
     }
     
     play(){
@@ -41,14 +47,25 @@ class AudioChan {
         };
     }
 
+    stop(){
+        this.pause();
+        this.end();
+    }
+
+    isEnded(){
+        if (this.texte[this.clipTexte] == undefined) return this.finish;
+        return this.finish && (this.nTexte == this.texte[this.clipTexte].length - 1);
+    }
+
     empty(){}
     
-    load(clip,step){
+    load(clip,step,clipTexte){
         // On met en place l'audio
         this.actx.src = "voices/" + this.story + "/" + step + "/" + clip + ".ogg";
         // On prépare les sous-titres.
         this.nTexte = 0;
         this.clip = clip;
+        this.clipTexte = clipTexte;
         if (this.step != step){
             this.step = step;
             let requestURL = "textes/" + this.story + "/" + step + "-" + this.id + ".json";

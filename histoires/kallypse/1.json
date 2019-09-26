@@ -1,8 +1,8 @@
 {
     "position":[[-50,200],[200,0],[150,75],[-200,0],[-150,-75]],
-    "dialogues":[[1,1,4],[0,2,5],[1,3],[0,4],[0,5],[1,6],[0,0],[1,7,3]],
+    "dialogues":[[1, 0, 1, 4], [0, 0, 2, 2], [1, 1, 3], [0, 1, 4], [1, 2, 5], [0, 2, 6], [1, 3, 7], [0, 3, 8, 2], [0, 4, 8, 3]],
     "mort":2,
-    "events":[[["activate",4,0]],[["deactivate",4]],[["changeStep",2]],[["img","non_gameplay/savane_general"],["waitKey",0]],[["deImg"]],[["addMain", [ [[1,100,600],[2,50,50]] , [[0,30,200]] ] ]]],
-    "first":7
+    "events":[[["activateKeyBoard",4,0],["addMain", [ [[1,-600,0],[0,30,90]] , [[2,550,100]] ] ]],[["deactivate",4]],[["changeStep",2]],[["img","non_gameplay/savane_general"],["waitKey",0]],[["deImg"]]],
+    "first":8
 
 }
