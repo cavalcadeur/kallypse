@@ -5,7 +5,8 @@ window.Scene = function(){
             this.size = [800,400];
             this.mains = [];
             this.mainSpeed = 6;
-            
+            this.tableImg = new Image();
+            this.tableImg.src = "images/non_gameplay/table.png";
             this.backEffects = [];
             this.effects = [];
             this.frontEffects = [];
@@ -32,7 +33,7 @@ window.Scene = function(){
             for (let i = 0; i < this.backEffects.length; i ++){
                 this.backEffects[i].draw(Painter);
             }   
-            Painter.ellipse(0,0,this.size[0],this.size[1],"rgb(140,140,140)");
+            Painter.imgTable(this.tableImg,0,0,this.size[0]*2,this.size[1]*2);
             for (let i = 0; i < this.elem.length; i ++){
                 this.elem[i].draw(Painter);
             }

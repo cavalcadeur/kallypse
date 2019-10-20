@@ -30,6 +30,10 @@ window.Painter = function(){
             this.ctx.drawImage(img,this.scrollX + x - img.width/2,this.scrollY + y - img.height);
         }
 
+        imgTable(img,x,y,sX,sY){
+            this.ctx.drawImage(img,this.scrollX + x - sX/2,this.scrollY + y - sY/2,sX,sY);
+        }
+
         imgObjTrans(img,x,y,trans){
             this.ctx.globalAlpha = trans;
             this.imgObj(img,x,y);
