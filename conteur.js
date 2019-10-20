@@ -42,6 +42,7 @@ window.Conteur = function(){
             this.pos = data.position;
             this.dialogues = data.dialogues;
             this.events = data.events;
+            this.nDia = -1;
         }
 
         createObj(Scene){

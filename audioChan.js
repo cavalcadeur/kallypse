@@ -47,9 +47,10 @@ class AudioChan {
         };
     }
 
-    stop(){
+    stop(hard){
         this.pause();
         this.end();
+        if (hard) this.nTexte = this.texte[this.clipTexte].length - 1;
     }
 
     isEnded(){

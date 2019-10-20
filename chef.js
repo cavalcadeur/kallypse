@@ -24,6 +24,11 @@ window.Chef = function(){
             this.Conteur = conteur;
         }
 
+        setMusicChan(musicChan,story){
+            this.MusicChan = musicChan;
+            this.MusicChan.init(story,0);
+        }
+
         setVoiceChan(voices,story){
             this.voices = voices;
             this.voices.forEach(
@@ -92,6 +97,10 @@ window.Chef = function(){
                 else if (event[i][0] == "activateKeyBoard"){
                     this.KeyBoard.newStance(2,0);
                 }
+                else if (event[i][0] == "playSong"){
+                    this.MusicChan.load(event[i][1]);
+                    //this.MusicChan.play();
+                }
                 else this.Scene.event(event[i]);
             }
         }
@@ -122,9 +131,9 @@ window.Chef = function(){
                 this.draw();
 
                 // Partie Action
-                this.Scene.act(t,KeyBoard);
+                let [x,y] = this.Scene.act(t,KeyBoard);
                 this.Scene.sort();
-                this.Painter.scroll();
+                this.Painter.scroll(x,y);
 
                 if (this.Scene.isThereDeath()){
                     this.Conteur.death(this.voices,this.Scene);

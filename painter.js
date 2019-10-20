@@ -5,7 +5,7 @@ window.Painter = function(){
         
         
         constructor(){
-            this.scrollSpeed = 6;
+            this.scrollSpeed = 6; this.vscr = 0;
         }
 
         init(ctx,W,H,scrollX,scrollY){
@@ -44,6 +44,15 @@ window.Painter = function(){
             this.ctx.restore();
         }
 
+        imgObjRotScale(img,x,y,r,sx,sy){
+            this.ctx.save();
+            this.ctx.translate(this.scrollX + x,this.scrollY + y - img.height/2);
+            this.ctx.scale(sx,sy);
+            this.ctx.rotate(r);
+            this.ctx.drawImage(img,-img.width/2,-img.height/2);
+            this.ctx.restore();
+        }
+
         imgCover(img){
             this.ctx.drawImage(img,0,0,W,H)
         }
@@ -59,21 +68,20 @@ window.Painter = function(){
             this.ctx.fillRect(0,0,W,H);
         }
 
-        scroll(){
+        scroll(x,y){
             // Calcul du scroll idéal
-            let ideal = [W/2,H/2];
+            let goalX = W/2 - 3*x/4;
+            let goalY =  H/2 - 3*y/4;
+            let dist = Math.hypot(goalX - this.scrollX,goalY - this.scrollY);
 
-            // On approche le scroll de la position idéal
-            ideal[0] -= this.scrollX;
-            ideal[1] -= this.scrollY;
-            let taille = ideal[0]**2 + ideal[1]**2;
-            if (taille >= this.scrollSpeed**2){
-                taille = this.scrollSpeed / Math.sqrt(taille);
-                ideal[0] = ideal[0]*taille;
-                ideal[1] = ideal[1]*taille;
-                this.scrollX += ideal[0];
-                this.scrollY += ideal[1];
-            }
+            let lscr = dist/70;
+            if (dist <= 11) {this.vscr = 0; return;}
+            if (this.vscr < lscr) this.vscr += 0.5;
+            else if (this.vscr > lscr + 0.5) this.vscr -= 0.5;
+            let dscrX = (goalX - this.scrollX)/dist;
+            let dscrY = (goalY - this.scrollY)/dist;
+            this.scrollX += this.vscr * dscrX;
+            this.scrollY += this.vscr * dscrY;
         }
 
     };

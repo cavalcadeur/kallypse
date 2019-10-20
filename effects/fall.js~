@@ -1,0 +1,9 @@
+class EffFall extends Effect {
+    constructor(data){
+        super();
+        this.pos = 
+    }
+
+
+
+};

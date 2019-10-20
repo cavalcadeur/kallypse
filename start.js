@@ -29,6 +29,7 @@ function initGame(){
 
 function initGame2(){
     Chef.setVoiceChan([new AudioChan(),new AudioChan()],"kallypse");
+    Chef.setMusicChan(new MusicChan(),"kallypse");
     Chef.setConteur(Conteur);
     Chef.setPainter(Painter);
     Chef.setScene(Scene);

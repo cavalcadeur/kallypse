@@ -5,6 +5,22 @@ window.Scene = function(){
             this.size = [800,400];
             this.mains = [];
             this.mainSpeed = 6;
+            
+            this.backEffects = [];
+            this.effects = [];
+            this.frontEffects = [];
+            for (let i = 0; i < 10; i ++){
+                if (i < 4) {
+                    this.backEffects[i] = new EffChenille();
+                    this.backEffects[i].init();
+                    this.frontEffects[i] = new EffChenille();
+                    this.frontEffects[i].init();
+                }
+                else{
+                    this.backEffects[i] = new Effect();
+                    this.frontEffects[i] = new Effect();
+                }
+            }
         }
 
         add(obj){
@@ -12,11 +28,17 @@ window.Scene = function(){
             this.elem.push(obj);
         }
         
-        draw(Painter){
+        draw(Painter){  
+            for (let i = 0; i < this.backEffects.length; i ++){
+                this.backEffects[i].draw(Painter);
+            }   
             Painter.ellipse(0,0,this.size[0],this.size[1],"rgb(140,140,140)");
             for (let i = 0; i < this.elem.length; i ++){
                 this.elem[i].draw(Painter);
-            }           
+            }
+            for (let i = 0; i < this.frontEffects.length; i ++){
+                this.frontEffects[i].draw(Painter);
+            } 
         }
 
         put(n,x,y){
@@ -25,6 +47,7 @@ window.Scene = function(){
 
         act(t,keyBoard){
             // Faire agir ici les mains.
+            let result = [0,0];
             for (let i = 0; i < this.mains.length; i ++){
                 if (this.mains[i].length > 0){
                     let num = this.getById(this.mains[i][0][0]);
@@ -51,9 +74,41 @@ window.Scene = function(){
                 }
             }
             
+            let fallOff;
             for (let i = 0; i < this.elem.length; i++){
-                this.elem[i].act(t,keyBoard,this.elem,i);
+                fallOff = this.elem[i].act(t,keyBoard,this.elem,i,this.size);
+                if (this.elem[i].id == 0) result = this.elem[i].position;
+                if (fallOff) this.makeFall(i);
             }
+            
+            for (let i = 0; i < this.backEffects.length; i ++){
+                this.backEffects[i].act();
+            }
+            for (let i = 0; i < this.frontEffects.length; i ++){
+                this.frontEffects[i].act();
+            }  
+            
+            return result;
+        }
+
+        makeFall(i){
+            let data = this.elem[i].fall();
+            let back;
+            if (data[1] < 0) back = true;
+            else back = false;
+            this.addEffect(new EffFall(data),back);
+        }
+
+        addEffect(obj,back){
+            let liste;
+            if (back) liste = this.backEffects;
+            else liste = this.frontEffects;
+            let indice = 6;
+            for (let i = 0; i < liste.length; i ++){
+                if (liste[i].dispo) indice = i;
+            }
+            liste[indice] = obj;
+            
         }
 
         addMain(mains){
@@ -82,6 +137,9 @@ window.Scene = function(){
                         else this.elem[i].deActivate();
                     }
                 }
+            }
+            else if (evt[0] == "modeFuite"){
+                this.elem[this.getById(evt[1])].switchTo("fuite",evt[2]);
             }
         }
 
@@ -114,7 +172,7 @@ window.Scene = function(){
 
         sort(){
             function compare(a,b){
-                return a.getY() - b.getY();                
+                return a.position[1] - b.position[1];                
             }
             this.elem.sort(compare);
         }
