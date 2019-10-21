@@ -33,7 +33,7 @@ window.Scene = function(){
             for (let i = 0; i < this.backEffects.length; i ++){
                 this.backEffects[i].draw(Painter);
             }   
-            Painter.imgTable(this.tableImg,0,0,this.size[0]*2,this.size[1]*2);
+            Painter.imgTable(this.tableImg,0,0,this.size[0],this.size[1]);
             for (let i = 0; i < this.elem.length; i ++){
                 this.elem[i].draw(Painter);
             }

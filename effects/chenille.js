@@ -30,24 +30,24 @@ class EffChenille extends Effect {
             this.pos[i][0] = (this.pos[i][0]*11 + this.pos[i-1][0])/12;
             this.pos[i][1] = (this.pos[i][1]*11 + this.pos[i-1][1])/12;
         }
-        if (this.pos[0][0] > 1250){
+        if (this.pos[0][0] > 1550){
             for (let i = 0; i < 5; i ++){
-                this.pos[i][0] = -1200;
+                this.pos[i][0] = -1500;
             }
         }
-        if (this.pos[0][0] < -1250){
+        if (this.pos[0][0] < -1550){
             for (let i = 0; i < 5; i ++){
-                this.pos[i][0] = 1200;
+                this.pos[i][0] = 1500;
             }
         }
-        if (this.pos[0][1] > 1250){
+        if (this.pos[0][1] > 1550){
             for (let i = 0; i < 5; i ++){
-                this.pos[i][1] = -1200;
+                this.pos[i][1] = -1500;
             }
         }
-        if (this.pos[0][1] < -1250){
+        if (this.pos[0][1] < -1550){
             for (let i = 0; i < 5; i ++){
-                this.pos[i][1] = -1200;
+                this.pos[i][1] = -1500;
             }
         }
     }    

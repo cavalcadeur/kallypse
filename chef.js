@@ -114,7 +114,7 @@ window.Chef = function(){
         }
 
         draw(){
-            this.Painter.cleanScreen();
+            this.Painter.backScreen();
             if (this.surImg == 0){
                 this.Scene.draw(Painter);
             }

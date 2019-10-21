@@ -6,11 +6,16 @@ window.Painter = function(){
         
         constructor(){
             this.scrollSpeed = 6; this.vscr = 0;
+            this.goalX; this.goalY; this.dist;
+            this.maxX = 400; this.minX = -400;
+            this.maxY = 700; this.minY = -150;
         }
 
         init(ctx,W,H,scrollX,scrollY){
             this.ctx = ctx;
             this.W = W; this.H = H;
+            this.maxX += W/2; this.minX += W/2;
+            this.maxY += H/2; this.minY += H/2;
             this.scrollX = scrollX; this.scrollY = scrollY;
         }
 
@@ -31,7 +36,7 @@ window.Painter = function(){
         }
 
         imgTable(img,x,y,sX,sY){
-            this.ctx.drawImage(img,this.scrollX + x - sX/2,this.scrollY + y - sY/2,sX,sY);
+            this.ctx.drawImage(img,this.scrollX + x - sX,this.scrollY + y - sY);
         }
 
         imgObjTrans(img,x,y,trans){
@@ -67,23 +72,28 @@ window.Painter = function(){
             this.ctx.drawImage(img,0,H-newY,W,newY);
         }
         
-        cleanScreen(){
-            this.ctx.fillStyle = "rgb(38,70,100)";
+        backScreen(){
+            this.ctx.fillStyle = "rgb(72,65,222)";
             this.ctx.fillRect(0,0,W,H);
+            this.ctx.fillStyle = "rgb(194,111,17)";
+            this.ctx.fillRect(0,H/2 - 550 + this.scrollY,W,H/2 + 550 + this.scrollY);
         }
 
         scroll(x,y){
             // Calcul du scroll idéal
-            let goalX = W/2 - 3*x/4;
-            let goalY =  H/2 - 3*y/4;
-            let dist = Math.hypot(goalX - this.scrollX,goalY - this.scrollY);
+            this.goalX = W/2 - 3*x/4;
+            this.goalX = Math.max(Math.min(this.goalX,this.maxX),this.minX);
+            this.goalY =  H/2 - 3*y/4;
+            this.goalY = Math.max(Math.min(this.goalY,this.maxY),this.minY);
+            
+            this.dist = Math.hypot(this.goalX - this.scrollX,this.goalY - this.scrollY);
 
-            let lscr = dist/70;
-            if (dist <= 11) {this.vscr = 0; return;}
+            const lscr = this.dist/70;
+            if (this.dist <= 11) {this.vscr = 0; return;}
             if (this.vscr < lscr) this.vscr += 0.5;
             else if (this.vscr > lscr + 0.5) this.vscr -= 0.5;
-            let dscrX = (goalX - this.scrollX)/dist;
-            let dscrY = (goalY - this.scrollY)/dist;
+            const dscrX = (this.goalX - this.scrollX)/this.dist;
+            const dscrY = (this.goalY - this.scrollY)/this.dist;
             this.scrollX += this.vscr * dscrX;
             this.scrollY += this.vscr * dscrY;
         }
