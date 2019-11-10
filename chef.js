@@ -7,6 +7,8 @@ window.Chef = function(){
             this.surImg = 0; // 0 : affichage de la table  1 : écran noir  2 : image
             this.img = new Image();
             this.oldT = -1;
+            this.triggers = [];
+            this.soundTweaks = [false,6];
         }
 
         start(){
@@ -103,8 +105,19 @@ window.Chef = function(){
                     this.KeyBoard.newStance(2,event[i][1]);
                 }
                 else if (event[i][0] == "playSong"){
-                    this.MusicChan.load(event[i][1]);
+                    if (this.MusicChan.name == "" || this.MusicChan.name == event[i][1]){
+                        this.MusicChan.load(event[i][1]);
+                    }
+                    else{
+                        this.soundTweaks = [true,30,event[i][1]];
+                    }
                     //this.MusicChan.play();
+                }
+                else if (event[i][0] == "proxTrigger"){
+                    this.triggers.push(event[i]);
+                }
+                else if (event[i][0] == "deTrigger"){
+                    this.triggers = [];
                 }
                 else this.Scene.event(event[i]);
             }
@@ -125,6 +138,26 @@ window.Chef = function(){
                 this.Painter.imgCoverBottom(this.img);
             }
         }
+
+        handleTrigger(tr){
+            if (tr[0] == "proxTrigger"){
+                if (this.Scene.prox(tr[1],tr[2])){
+                    console.log("PUTAIN OUI !");
+                    this.manageEvent(this.Conteur.events[tr[3]]);
+                    this.triggers = [];
+                }
+            }
+        }
+
+        soundVolume(){
+            this.soundTweaks[1] -= 1;
+            this.MusicChan.changeVolume(this.soundTweaks[1] / 100);
+            if (this.soundTweaks[1] == 0) {
+                this.MusicChan.changeVolume(0.3);
+                this.soundTweaks[0] = false;
+                this.MusicChan.load(this.soundTweaks[2]);
+            }
+        }
         
         animation(){
             let f = function(t){
@@ -143,6 +176,10 @@ window.Chef = function(){
                     this.manageEvent(evt);
                 }
 
+                for (let i = 0; i < this.triggers.length; i ++){
+                    this.handleTrigger(this.triggers[i]);
+                }
+
                 let keyMsg = this.KeyBoard.getNews();
                 this.handleKeyMsg(keyMsg);
                 this.KeyBoard.resetNews();
@@ -154,6 +191,7 @@ window.Chef = function(){
                     let evt = this.Conteur.next(this.voices,this.Scene,this.KeyBoard);
                     this.manageEvent(evt);
                 }
+                if (this.soundTweaks[0]) this.soundVolume();
 
                 this.oldT = t;
                 

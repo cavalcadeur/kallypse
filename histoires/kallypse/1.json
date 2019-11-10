@@ -1,8 +1,8 @@
 {
     "position":[[-50,200],[200,0],[150,75],[-200,0],[-150,-75]],
-    "dialogues":[[1, 0, 1, 4], [0, 0, 2], [1, 1, 3], [0, 1, 4, 0], [1, 2, 5], [0, 2, 6, 2], [0, 5, 6, 3]],
+    "dialogues":[[1, 0, 1, 4], [0, 0, 2], [1, 1, 3], [0, 1, 4, 0], [0, 2, 4, 3]],
     "mort":2,
-    "events":[[["addMain", [ [[1,-600,0],[0,0,90]] , [[2,550,100]] ] ]],[["deactivate",4]],[["changeStep",2]],[["img","non_gameplay/savane_general"],["waitKey",5],["playSong","matin"]],[["deImg"]],[["goto",0]]],
-    "first":6
+    "events":[[["addMain", [ [[1,-600,0],[0,0,90]] , [[2,550,100]] ] ],["changeStep",2]],[["deactivate",4]],[["changeStep",2]],[["img","non_gameplay/savane_general"],["waitKey",5],["playSong","matin"]],[["deImg"]],[["goto",0]]],
+    "first":4
 
 }

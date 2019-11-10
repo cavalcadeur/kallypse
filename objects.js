@@ -9,6 +9,7 @@ class Objet {
         this.vulnerable = false;
         this.activeBuffer = 0; this.elliptoide = 0;
 
+        this.g = 0;
         this.mode = ""; this.modeData;
     }
 
@@ -102,6 +103,10 @@ class Objet {
         if (this.elliptoide > 1){
             this.r += Math.PI;
         }
+
+        this.z += this.g*2;
+        this.g -= 0.2; 
+        if (this.z <= 0) {this.g = 2; this.z = 0;}
     }
 
     getById(id,elem){
@@ -115,14 +120,16 @@ class Objet {
         return this.position[1];
     }
 
-    overlap(pos,size){
+    overlap(pos,size,mod){
+        if (mod == undefined) mod = 1;
         if (this.activeBuffer > 0) return false;
-        return Math.abs(this.position[0] - pos[0])*2 <= size[0] + this.size[0] &&
-            Math.abs(this.position[1] - pos[1])*2 <= size[1] + this.size[1];
+        return Math.abs(this.position[0] - pos[0])*2 <= (size[0] + this.size[0])*mod &&
+            Math.abs(this.position[1] - pos[1])*2 <= (size[1] + this.size[1])*mod;
     }
 
     switchTo(mode,evt){
         this.mode = mode; this.modeData = evt;
+        this.g = 2; this.z = 0;
     }
     
 };

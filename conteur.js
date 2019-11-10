@@ -65,12 +65,12 @@ window.Conteur = function(){
             Scene.setUp(this.pos);
         }
 
-        newDialogue(voices,Scene,KeyBoard){
+        newDialogue(voices,Scene,KeyBoard,hard){
             let event = this.dialogues[this.nDia][3];
             if (event != undefined) event = this.events[event];
             else event = [];
             for (let i = 0; i < voices.length; i ++){
-                voices[i].stop();
+                voices[i].stop(hard);
             }
             voices[this.dialogues[this.nDia][0]].load(this.nDia,this.step,this.dialogues[this.nDia][1]);
             voices[this.dialogues[this.nDia][0]].play();
@@ -95,7 +95,7 @@ window.Conteur = function(){
 
         death(voices,Scene){
             this.nDia = this.mort;
-            return this.newDialogue(voices,Scene);
+            return this.newDialogue(voices,Scene,undefined,true);
         }
     };
 

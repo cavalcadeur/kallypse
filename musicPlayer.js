@@ -29,6 +29,11 @@ class MusicChan {
         };
     }
 
+    changeVolume(n){
+        this.volume = n;
+        this.music.volume = this.volume;
+    }
+    
     stop(){
         this.pause();
         this.end();

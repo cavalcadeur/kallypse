@@ -168,6 +168,13 @@ window.Scene = function(){
                 }
             }
         }
+
+        prox(a,b){
+            a = this.getById(a); b = this.getById(b);
+            a = this.elem[a]; b = this.elem[b];
+            let size = b.size;
+            return a.overlap(b.position,[size[0],size[1]],1.5);
+        }
         
         getElem(n){
             if (n == undefined) return elem;
