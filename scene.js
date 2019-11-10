@@ -142,6 +142,9 @@ window.Scene = function(){
             else if (evt[0] == "modeFuite"){
                 this.elem[this.getById(evt[1])].switchTo("fuite",evt[2]);
             }
+            else if (evt[0] == "deModeFuite"){
+                this.elem[this.getById(evt[1])].switchTo("");
+            }
         }
 
         isThereDeath(){

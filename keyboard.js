@@ -19,7 +19,7 @@ window.KeyBoard = function(){
         keyUp(evt){
             this.key[evt.key] = 0;
             if (this.stance == 1) {
-                this.news = ["goto",this.dest];
+                this.news = ["newEvent",this.dest];
                 this.stance = 0;
             }
         }

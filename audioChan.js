@@ -77,6 +77,7 @@ class AudioChan {
             let that = this;
             request.onload = function(){
                 that.texte = request.response;
+                console.log(that.story + "/" + step + "-" + that.id);
                 console.log(request.response);
             };
         }

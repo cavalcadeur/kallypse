@@ -19,8 +19,6 @@ function start(){
     Painter.init(ctx,W,H,0,0);
     KeyBoard.init();
     Conteur.init("kallypse",Scene,initGame);
-    
-    initGame();
 }
 
 function initGame(){

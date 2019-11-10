@@ -8,7 +8,7 @@ window.Painter = function(){
             this.scrollSpeed = 6; this.vscr = 0;
             this.goalX; this.goalY; this.dist;
             this.maxX = 400; this.minX = -400;
-            this.maxY = 700; this.minY = -150;
+            this.maxY = 700; this.minY = -80;
         }
 
         init(ctx,W,H,scrollX,scrollY){

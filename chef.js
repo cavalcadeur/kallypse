@@ -26,7 +26,7 @@ window.Chef = function(){
 
         setMusicChan(musicChan,story){
             this.MusicChan = musicChan;
-            this.MusicChan.init(story,0);
+            this.MusicChan.init(story,Math.random() * 200);
         }
 
         setVoiceChan(voices,story){
@@ -73,8 +73,13 @@ window.Chef = function(){
         manageEvent(event){
             for (let i = 0; i < event.length; i ++){
                 if (event[i][0] == "changeStep"){
-                    // Ca va beaucoup moins bien marcher forcément.
                     this.Conteur.load(event[i][1],this.newStep.bind(this));
+                    return;
+                }
+                else if (event[i][0] == "goto"){
+                    this.Conteur.setStep(event[i][1]);
+                    let evt = this.Conteur.newDialogue(this.voices,this.Scene,this.KeyBoard);
+                    this.manageEvent(evt);
                     return;
                 }
                 else if (event[i][0] == "waitKey"){
@@ -95,7 +100,7 @@ window.Chef = function(){
                     this.Scene.addMain(event[i][1],event[i][2]);
                 }
                 else if (event[i][0] == "activateKeyBoard"){
-                    this.KeyBoard.newStance(2,0);
+                    this.KeyBoard.newStance(2,event[i][1]);
                 }
                 else if (event[i][0] == "playSong"){
                     this.MusicChan.load(event[i][1]);
@@ -106,10 +111,8 @@ window.Chef = function(){
         }
 
         handleKeyMsg(msg){
-            if (msg[0] == "goto"){
-                this.Conteur.setStep(msg[1]);
-                let evt = this.Conteur.newDialogue(this.voices,this.Scene,this.KeyBoard);
-                this.manageEvent(evt);
+            if (msg[0] == "newEvent"){
+                this.manageEvent(this.Conteur.events[msg[1]]);
             }
         }
 
@@ -136,7 +139,8 @@ window.Chef = function(){
                 this.Painter.scroll(x,y);
 
                 if (this.Scene.isThereDeath()){
-                    this.Conteur.death(this.voices,this.Scene);
+                    let evt = this.Conteur.death(this.voices,this.Scene);
+                    this.manageEvent(evt);
                 }
 
                 let keyMsg = this.KeyBoard.getNews();

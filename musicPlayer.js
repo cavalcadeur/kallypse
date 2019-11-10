@@ -43,12 +43,12 @@ class MusicChan {
     
     load(music){
         // On met en place l'audio
-        
         if (music != this.name) {
+            this.name = music;
+            this.music.pause();
             this.music.src = "musiques/" + this.story + "/" + music + ".mp3";
             this.play();
         }
-        this.name = music;
     }
 
 };

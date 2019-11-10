@@ -95,7 +95,7 @@ window.Conteur = function(){
 
         death(voices,Scene){
             this.nDia = this.mort;
-            this.newDialogue(voices,Scene);
+            return this.newDialogue(voices,Scene);
         }
     };
 
