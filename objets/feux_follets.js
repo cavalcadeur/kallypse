@@ -19,7 +19,7 @@ class Feux extends Objet{
     }
 
     deActivate(){
-        this.state = 0;
+        this.state = 4;
     }
 
     draw(Painter){
