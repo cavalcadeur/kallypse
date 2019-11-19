@@ -6,7 +6,7 @@ class Feux extends Objet{
         this.state = 0; // Etat repos : 0  apparition : 1  missile : 2  disparition : 3  ou  4
         this.vect = [];
         this.n = 0;
-        this.fadeTime = 50;
+        this.fadeTime = 65;
         this.missileTime = 120;
         this.targetDistance = 200; // Distance à la victime
         this.trans = 1;

@@ -2,7 +2,7 @@
     "position":[[-150,10],[10,-200],[350,300],[-260,30],[-250,-95]],
     "dialogues":[[0, 0, 1, 0], [1, 0, 2], [0, 1, 3], [1, 1, 4], [0, 2, 5], [0,3,5,1]],
     "mort":0,
-    "events":[[["waitKey",3], ["deactivate",8], ["deactivate",9], ["deactivate",10], ["deactivate",11], ["deactivate",12], ["deactivate",13], ["deactivate",14], ["deactivate",15]],[["img","non_gameplay/savane_mort"],["waitKey",2],["playSong","matin"]],[["changeStep",1]],[["waitKey",3]]],
+    "events":[[["waitKey",3], ["deactivate",8], ["deactivate",9], ["deactivate",10], ["deactivate",11], ["deactivate",12], ["deactivate",13], ["deactivate",14], ["deactivate",15]],[["img","non_gameplay/savane_mort"],["waitKey",2],["playSong","matin"]],[["changeStep",666]],[["waitKey",3]]],
     "first":0
 
 }

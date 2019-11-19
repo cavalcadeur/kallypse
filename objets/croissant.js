@@ -66,7 +66,12 @@ class Croissant extends Objet{
             
             if (this.bonking(elem,i)){
                 this.position[0] -= direction[0] * taille;
-                this.position[1] -= direction[1] * taille;
+                this.position[1] -= direction[1] * taille * 0.5;
+                if (this.bonking(elem,i)){
+                    this.position[0] += direction[0] * taille;
+                    this.position[1] -= direction[1] * taille * 0.5;
+                    if (this.bonking(elem,i)) this.position[0] -= direction[0] * taille;
+                }
             }
         }
         let elliptoide = (this.position[0] / sizu[0])**2 + (this.position[1] / sizu[1])**2;
@@ -77,7 +82,7 @@ class Croissant extends Objet{
     fall(){
         let data = [this.position[0],this.position[1],this.vect[0],this.vect[1],this.img];
         this.position = [0,0];
-        this.activeBuffer = 120;
+        this.activeBuffer = 40;
         return data;
     }
 
